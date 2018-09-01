@@ -13,12 +13,11 @@ class GarbageCollectionTask extends Task{
 	private $expiry;
 
 	public function __construct(WorldEditArt $main, Cached $cached){
-		parent::__construct($main);
 		$this->cached = $cached;
 		$this->expiry = $main->getConfig()->get("data providers")["cache time"];
 	}
 
-	public function onRun(int $ticks){
+	public function onRun(int $ticks) : void{
 		$this->cached->collectGarbage($this->expiry);
 	}
 }
