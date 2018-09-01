@@ -81,7 +81,7 @@ class WorldEditArt extends PluginBase implements Listener{
 	private $doJump, $doWand;
 
 // INITIALIZERS
-	public function onPreEnable(){
+	public function onLoad(){
 		@mkdir($this->getDataFolder());
 		$this->saveDefaultConfig();
 		$maxHeight = $this->getConfig()->get("maximum world height");
@@ -91,7 +91,7 @@ class WorldEditArt extends PluginBase implements Listener{
 	}
 
 	public function onEnable(){
-		$this->onPreEnable();
+		$this->onLoad();
 		$this->getServer()->getPluginManager()->registerEvents($this, $this);
 		$this->registerCommands();
 		$providers = $this->getConfig()->get("data providers");
