@@ -10,12 +10,15 @@ use pemapmodder\worldeditart\utils\provider\clip\BinaryClipboardProvider;
 use pemapmodder\worldeditart\utils\provider\clip\DummyClipboardProvider;
 use pemapmodder\worldeditart\utils\provider\clip\MysqliClipboardProvider;
 use pemapmodder\worldeditart\utils\provider\macro\DummyMacroDataProvider;
+use pemapmodder\worldeditart\utils\provider\macro\MacroDataProvider;
 use pemapmodder\worldeditart\utils\provider\macro\LocalNBTMacroDataProvider;
 use pemapmodder\worldeditart\utils\provider\macro\MysqliMacroDataProvider;
 use pemapmodder\worldeditart\utils\provider\player\DummyPlayerDataProvider;
 use pemapmodder\worldeditart\utils\provider\player\JSONFilePlayerDataProvider;
 use pemapmodder\worldeditart\utils\provider\player\MysqliPlayerDataProvider;
 use pemapmodder\worldeditart\utils\provider\player\PlayerData;
+use pemapmodder\worldeditart\utils\provider\player\PlayerDataProvider;
+use pemapmodder\worldeditart\utils\provider\clip\ClipboardProvider
 use pemapmodder\worldeditart\utils\provider\player\SQLite3PlayerDataProvider;
 use pemapmodder\worldeditart\utils\provider\player\YAMLFilePlayerDataProvider;
 use pemapmodder\worldeditart\utils\spaces\CylinderSpace;
@@ -81,7 +84,7 @@ class WorldEditArt extends PluginBase implements Listener{
 	private $doJump, $doWand;
 
 // INITIALIZERS
-	public function onLoad(){
+	public function onLoad() : void{
 		@mkdir($this->getDataFolder());
 		$this->saveDefaultConfig();
 		$maxHeight = $this->getConfig()->get("maximum world height");
@@ -90,7 +93,7 @@ class WorldEditArt extends PluginBase implements Listener{
 		}
 	}
 
-	public function onEnable(){
+	public function onEnable() : void{
 		$this->onLoad();
 		$this->getServer()->getPluginManager()->registerEvents($this, $this);
 		$this->registerCommands();
@@ -253,7 +256,7 @@ class WorldEditArt extends PluginBase implements Listener{
 		$this->getServer()->getCommandMap()->register("wea", $wea);
 	}
 
-	public function onDisable(){
+	public function onDisable() : void{
 		if($this->macroDataProvider){
 			$this->macroDataProvider->close();
 		}
@@ -690,23 +693,23 @@ class WorldEditArt extends PluginBase implements Listener{
 	}
 
 	/**
-	 * @return \pemapmodder\worldeditart\utils\provider\player\PlayerDataProvider
+	 * @return PlayerDataProvider
 	 */
-	public function getPlayerDataProvider(){
+	public function getPlayerDataProvider() : PlayerDataProvider{
 		return $this->playerDataProvider;
 	}
 
 	/**
-	 * @return \pemapmodder\worldeditart\utils\provider\macro\MacroDataProvider
+	 * @return MacroDataProvider
 	 */
-	public function getMacroDataProvider(){
+	public function getMacroDataProvider() : MacroDataProvider{
 		return $this->macroDataProvider;
 	}
 
 	/**
-	 * @return \pemapmodder\worldeditart\utils\provider\clip\ClipboardProvider
+	 * @return ClipboardProvider
 	 */
-	public function getClipboardProvider(){
+	public function getClipboardProvider() : ClipboardProvider{
 		return $this->clipboardProvider;
 	}
 }
