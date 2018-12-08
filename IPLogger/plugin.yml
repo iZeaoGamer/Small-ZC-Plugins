@@ -1,10 +1,9 @@
 ---
 name: IPLogger
 main: pemapmodder\iplogger\Main
-version: "002"
+version: "1.0.0"
 api:
-- 1.0.0
-- 2.0.0
+- 3.0.0
 author: PEMapModder
 load: PostWorld
 website: https://github.com/PEMapModder/Small-ZC-Plugins/tree/master/IPLogger
