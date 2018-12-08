@@ -46,10 +46,10 @@ class Main extends PluginBase implements Listener{
 		}
 	}
 
-	public function onCommand(Issuer $issuer, Cmd $cmd, $alias, array $args){
+	public function onCommand(Issuer $issuer, Cmd $cmd, string $alias, array $args): bool{
 		if(!isset($args[0])){
 			if(!$issuer->hasPermission("iplogger.self.read")){
-				$issuer->sendMessage("You don't have permission to view your own IP log!");
+				$issuer->sendMessage("§cYou don't have permission to view your own IP log!");
 				return true;
 			}
 			if(!($issuer instanceof Player)){
@@ -58,17 +58,17 @@ class Main extends PluginBase implements Listener{
 			$name = strtolower($issuer->getName());
 		}else{
 			if(!$issuer->hasPermission("iplogger.other.read")){
-				$issuer->sendMessage("You don't have permission to view otheres' IP log!");
+				$issuer->sendMessage("§cYou don't have permission to view otheres' IP log!")
 				return true;
 			}
 			$name = strtolower(trim($args[0]));
 		}
 		$path = $this->getFileByString($name);
 		if(!is_file($path)){
-			$issuer->sendMessage("$name has never been on this server!");
+			$issuer->sendMessage("§4$name §chas never joined this server!");
 			return true;
 		}
-		$issuer->sendMessage("IP log of $name:");
+		$issuer->sendMessage("§6IP log of §e$name:\n§3");
 		$msg = str_replace(PHP_EOL, ", ", file_get_contents($path));
 		if(substr($msg, -2) === ", "){
 			$msg = substr($msg, 0, -2);
